@@ -5,9 +5,20 @@ import satori from "satori";
 import fs from "fs";
 import path from "path";
 
-const inter = fs.readFileSync(
-  path.join(process.cwd(), "public", "desktop", "Inter-Black.otf")
-);
+const font = {
+  data: fs.readFileSync(
+    path.join(
+      process.cwd(),
+      "public",
+      "fonts",
+      "inter",
+      "desktop",
+      "Inter-Black.otf"
+    )
+  ),
+  name: "Fooo",
+  weight: 900,
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,6 +28,7 @@ export default async function handler(
     rtl,
     baseBgColor,
     primaryLabel,
+    baseBorderColor,
     primaryBgColor,
     primaryTextColor,
     secondaryLabel,
@@ -36,6 +48,7 @@ export default async function handler(
         alignItems: "center",
         justifyContent: "center",
         textTransform: "uppercase",
+
         padding: 12,
       }}
     >
@@ -58,22 +71,31 @@ export default async function handler(
         padding: 12,
       }}
     >
-      {secondaryLabel}
+      {secondaryLabel.trim()}
     </div>
   );
 
-  let items = [primary, secondary];
+  let spacer = (
+    <div
+      style={{
+        width: 4,
+        height: "100%",
+        display: "flex",
+        flexShrink: 0,
+      }}
+    ></div>
+  );
+
+  let items = [primary, spacer, secondary];
 
   if (rtl === "true") {
     items = items.reverse();
   }
 
-  console.log(rtl);
-
   const svg = await satori(
     <div
       style={{
-        background: baseBgColor,
+        background: baseBorderColor,
         display: "flex",
         alignItems: "center",
         height: "100%",
@@ -81,16 +103,27 @@ export default async function handler(
         padding: 4,
       }}
     >
-      {items.map((item) => item)}
+      <div
+        style={{
+          background: baseBgColor,
+          padding: 4,
+          display: "flex",
+          alignItems: "center",
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        {items.map((item) => item)}
+      </div>
     </div>,
     // @ts-ignore
     {
       fonts: [
         {
-          name: "Inter",
-          data: inter,
-          weight: 900,
-          style: "normal",
+          name: font.name,
+          data: font.data,
+          // @ts-ignore
+          weight: font.weight,
         },
       ],
     }
