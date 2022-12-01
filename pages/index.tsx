@@ -1,3 +1,4 @@
+import { SiMarkdown } from "react-icons/si";
 type BadgeParams = {
   rtl?: boolean;
   base: {
@@ -123,34 +124,79 @@ export default function Home() {
           alt=""
         />
       </div>
-      <div className="flex items-center py-24 justify-center bg-[#113F3D]">
-        <img
-          src={makeBadgeUrl({
-            base: {
-              border: {
-                color: "#1EBC82",
+      <div className="flex items-center py-24 flex-col space-y-16 justify-center bg-[#113F3D]">
+        <div>
+          <img
+            className="mx-auto"
+            src={makeBadgeUrl({
+              base: {
+                border: {
+                  color: "#2CD197",
+                },
+                color: {
+                  bg: "#113F3D",
+                },
               },
-              color: {
-                bg: "#113F3D",
+              primary: {
+                label: "I love",
+                color: {
+                  bg: "#FAF3DA",
+                  text: "#113F3D",
+                },
               },
-            },
-            primary: {
-              label: "Tastes like",
-              color: {
-                bg: "#FAF3DA",
-                text: "#113F3D",
+              secondary: {
+                label: "TYPES",
+                color: {
+                  text: "#113F3D",
+                  bg: "#2CD197",
+                },
               },
-            },
-            secondary: {
-              label: "JS",
-              color: {
-                text: "#113F3D",
-                bg: "#1EBC82",
+            })}
+            alt=""
+          />
+          <div className="text-center mt-8 bg-black/10 p-2 rounded border border-black/10 flex items-center space-x-2">
+            <SiMarkdown className="text-[#2CD197]" />
+            <pre className="text-[#2CD197] text-sm">
+              ![i love types](...?start=I+love&end=types)
+            </pre>
+          </div>
+        </div>
+        <div>
+          <img
+            className="mx-auto"
+            src={makeBadgeUrl({
+              base: {
+                border: {
+                  color: "#2CD197",
+                },
+                color: {
+                  bg: "#113F3D",
+                },
               },
-            },
-          })}
-          alt=""
-        />
+              primary: {
+                label: "Works on",
+                color: {
+                  bg: "#FAF3DA",
+                  text: "#113F3D",
+                },
+              },
+              secondary: {
+                label: "my machine",
+                color: {
+                  text: "#113F3D",
+                  bg: "#2CD197",
+                },
+              },
+            })}
+            alt=""
+          />
+          <div className="text-center mt-8 bg-black/10 p-2 rounded border border-black/10 flex items-center space-x-2">
+            <SiMarkdown className="text-[#2CD197]" />
+            <pre className="text-[#2CD197] text-sm">
+              ![works on my machine](...?start=works+on&end=my+machine)
+            </pre>
+          </div>
+        </div>
       </div>
     </>
   );
