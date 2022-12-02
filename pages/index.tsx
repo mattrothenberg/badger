@@ -198,6 +198,80 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="flex items-center py-24 flex-col space-y-16 justify-center bg-[#286072]">
+        <div>
+          <img
+            className="mx-auto"
+            src={makeBadgeUrl({
+              base: {
+                border: {
+                  color: "#69C6DC",
+                },
+                color: {
+                  bg: "#286072",
+                },
+              },
+              primary: {
+                label: "contains",
+                color: {
+                  text: "#286072",
+                  bg: "#F7F3E2",
+                },
+              },
+              secondary: {
+                label: "bugs",
+                color: {
+                  text: "#286072",
+                  bg: "#69C6DC",
+                },
+              },
+            })}
+            alt=""
+          />
+          <div className="text-center mt-8 bg-black/10 p-2 rounded border border-black/10 flex items-center space-x-2">
+            <SiMarkdown className="text-[#69C6DC]" />
+            <pre className="text-[#69C6DC] text-sm">
+              ![contains bugs](...?start=contains&end=bugs)
+            </pre>
+          </div>
+        </div>
+        <div>
+          <img
+            className="mx-auto"
+            src={makeBadgeUrl({
+              base: {
+                border: {
+                  color: "#2CD197",
+                },
+                color: {
+                  bg: "#9E1F65",
+                },
+              },
+              primary: {
+                label: "Works on",
+                color: {
+                  bg: "#FAF3DA",
+                  text: "#9E1F65",
+                },
+              },
+              secondary: {
+                label: "my machine",
+                color: {
+                  text: "#9E1F65",
+                  bg: "#2CD197",
+                },
+              },
+            })}
+            alt=""
+          />
+          <div className="text-center mt-8 bg-black/10 p-2 rounded border border-black/10 flex items-center space-x-2">
+            <SiMarkdown className="text-[#2CD197]" />
+            <pre className="text-[#2CD197] text-sm">
+              ![works on my machine](...?start=works+on&end=my+machine)
+            </pre>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
