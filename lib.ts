@@ -1,6 +1,7 @@
 export type ApiParamsV1 = {
   showBorder: boolean;
   borderColor?: string;
+  borderWidth?: number;
   startBg: string;
   startText: string;
   startLabel: string;
@@ -10,13 +11,20 @@ export type ApiParamsV1 = {
   rtl: boolean;
 };
 
-export type ApiParamsV1Serialized = Omit<ApiParamsV1, "rtl" | "showBorder"> & {
+export type ApiParamsV1Serialized = Omit<
+  ApiParamsV1,
+  "rtl" | "showBorder" | "borderWidth"
+> & {
+  borderWidth?: string;
   rtl: "1" | "0";
 };
 
 export function constructBadgeUrl(params: ApiParamsV1) {
   const urlParams = new URLSearchParams({
-    ...(params.showBorder && { borderColor: params.borderColor }),
+    ...(params.showBorder && {
+      borderColor: params.borderColor,
+      borderWidth: String(params.borderWidth),
+    }),
     startBg: params.startBg,
     startText: params.startText,
     startLabel: params.startLabel,
@@ -25,5 +33,6 @@ export function constructBadgeUrl(params: ApiParamsV1) {
     endLabel: params.endLabel,
     rtl: params.rtl ? "1" : "0",
   });
+  console.log(urlParams.toString());
   return `/api/v1/image?${urlParams.toString()}`;
 }

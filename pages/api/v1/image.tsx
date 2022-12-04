@@ -26,6 +26,7 @@ export default async function handler(
 ) {
   const {
     borderColor,
+    borderWidth,
     rtl,
     startBg,
     startText,
@@ -35,11 +36,14 @@ export default async function handler(
     endLabel,
   } = req.query as ApiParamsV1Serialized;
 
+  let showBorder = Boolean(borderColor) && Boolean(borderWidth);
+
+  console.log({ showBorder, borderColor, borderWidth });
+
   const primary = (
     <div
       style={{
         fontSize: 20,
-        // background: primaryBgColor,
         color: startText,
         height: "100%",
         flex: "1",
@@ -83,7 +87,7 @@ export default async function handler(
   let spacer = (
     <div
       style={{
-        width: 4,
+        width: Number(borderWidth),
         height: "100%",
         display: "flex",
         flexShrink: 0,
@@ -91,7 +95,7 @@ export default async function handler(
     ></div>
   );
 
-  let items = [primary, borderColor ? spacer : null, secondary].filter(Boolean);
+  let items = [primary, showBorder ? spacer : null, secondary].filter(Boolean);
 
   if (rtl === "1") {
     items = items.reverse();
@@ -100,12 +104,12 @@ export default async function handler(
   const svg = await satori(
     <div
       style={{
-        background: borderColor ? borderColor : "transparent",
+        background: showBorder ? borderColor : "transparent",
         display: "flex",
         alignItems: "center",
         height: "100%",
         width: "100%",
-        padding: borderColor ? 4 : 0,
+        padding: showBorder ? Number(borderWidth) : 0,
       }}
     >
       {items.map((item) => item)}

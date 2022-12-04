@@ -43,6 +43,13 @@ export default function Home() {
           return get("showBorder");
         },
       },
+      borderWidth: {
+        label: "Width",
+        value: 4,
+        min: 1,
+        max: 8,
+        step: 1,
+      },
     }),
     rtl: {
       value: false,
