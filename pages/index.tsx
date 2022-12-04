@@ -1,5 +1,6 @@
 import { useControls, folder } from "leva";
 import { RiImageFill, RiMarkdownFill } from "react-icons/ri";
+import { BadgePreview } from "../components/badge-preview";
 import { LinkPreview } from "../components/link-preview";
 import { Logo } from "../components/logo";
 import { VariantButton } from "../components/variant-button";
@@ -99,9 +100,8 @@ export default function Home() {
         </div>
       </header>
       <div className="flex-1 h-full justify-center flex items-center flex-col">
-        <div>
-          <img src={`/` + badgeUrl} />
-        </div>
+        <BadgePreview params={params} url={badgeUrl} />
+
         <div className="container px-4">
           <div className="max-w-xl mx-auto mt-8 space-y-4">
             <LinkPreview

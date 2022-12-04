@@ -38,6 +38,14 @@ export default async function handler(
 
   let showBorder = Boolean(borderColor) && Boolean(borderWidth);
 
+  // Throw an error if the text length is too long. A reasonable limit is 20 characters.
+  if (startLabel.length > 30 || endLabel.length > 30) {
+    res.status(400).json({
+      error: "Text length is too long. 30 characters is the maximum.",
+    });
+    return;
+  }
+
   const primary = (
     <div
       style={{
