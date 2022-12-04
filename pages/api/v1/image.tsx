@@ -125,10 +125,6 @@ export default async function handler(
     }
   );
   res.setHeader("Content-Type", "image/svg+xml");
-  res.setHeader(
-    "Cache-Control",
-    "public, immutable, no-transform, s-maxage=31536000, max-age=31536000"
-  );
 
   return res.end(svg);
 }
