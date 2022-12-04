@@ -1,6 +1,7 @@
 import { useControls, folder } from "leva";
 import { RiImageFill, RiMarkdownFill } from "react-icons/ri";
 import { LinkPreview } from "../components/link-preview";
+import { VariantButton } from "../components/variant-button";
 
 import { ApiParamsV1, constructBadgeUrl } from "../lib";
 import { variants } from "../variants";
@@ -83,23 +84,10 @@ export default function Home() {
             {variants.map((variant) => {
               return (
                 <li>
-                  <button
-                    className="w-8 h-8 rounded-full overflow-hidden relative"
+                  <VariantButton
+                    variant={variant}
                     onClick={() => setParams(variant.params)}
-                    key={variant.name}
-                  >
-                    <div className="absolute inset-0 flex">
-                      {variant.preview.map((color) => {
-                        return (
-                          <div
-                            style={{ background: color }}
-                            className="flex-1"
-                          ></div>
-                        );
-                      })}
-                    </div>
-                    {variant.name}
-                  </button>
+                  />
                 </li>
               );
             })}

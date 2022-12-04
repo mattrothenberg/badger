@@ -14,6 +14,7 @@
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "@vercel/og": "^0.0.20",
+    "framer-motion": "^7.6.18",
     "leva": "^0.9.34",
     "next": "13.0.4",
     "react": "18.2.0",

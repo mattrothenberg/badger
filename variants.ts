@@ -1,6 +1,6 @@
 import { ApiParamsV1 } from "./lib";
 
-type Variant = {
+export type Variant = {
   name: string;
   preview: string[];
   params: Partial<ApiParamsV1>;
