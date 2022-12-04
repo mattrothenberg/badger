@@ -52,6 +52,9 @@ export default function Home() {
         min: 1,
         max: 8,
         step: 1,
+        render: (get) => {
+          return get("showBorder");
+        },
       },
     }),
     rtl: {
@@ -71,20 +74,38 @@ export default function Home() {
 
   return (
     <div className="h-screen w-full flex items-center justify-center flex-col">
-      <ul>
-        {variants.map((variant) => {
-          return (
-            <li>
-              <button
-                onClick={() => setParams(variant.params)}
-                key={variant.name}
-              >
-                {variant.name}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="absolute top-0 left-0 p-4">
+        <div className="space-y-2">
+          <p className="text-xs uppercase tracking-wider font-semibold">
+            Examples
+          </p>
+          <ul className="space-x-2 inline-flex items-center">
+            {variants.map((variant) => {
+              return (
+                <li>
+                  <button
+                    className="w-8 h-8 rounded-full overflow-hidden relative"
+                    onClick={() => setParams(variant.params)}
+                    key={variant.name}
+                  >
+                    <div className="absolute inset-0 flex">
+                      {variant.preview.map((color) => {
+                        return (
+                          <div
+                            style={{ background: color }}
+                            className="flex-1"
+                          ></div>
+                        );
+                      })}
+                    </div>
+                    {variant.name}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
       <div>
         <img src={`/` + badgeUrl} />
       </div>
