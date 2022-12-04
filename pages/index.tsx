@@ -40,7 +40,7 @@ function makeBadgeUrl(params: BadgeParams) {
   urlParams.set("secondaryLabel", params.secondary.label);
   urlParams.set("secondaryBgColor", params.secondary.color.bg);
   urlParams.set("secondaryTextColor", params.secondary.color.text);
-  return `/api/image?${urlParams.toString()}`;
+  return `/api/v1/image?${urlParams.toString()}`;
 }
 
 export default function Home() {
