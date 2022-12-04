@@ -38,8 +38,6 @@ export default async function handler(
 
   let showBorder = Boolean(borderColor) && Boolean(borderWidth);
 
-  console.log({ showBorder, borderColor, borderWidth });
-
   const primary = (
     <div
       style={{
