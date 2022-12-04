@@ -1,4 +1,5 @@
-import { useControls, folder } from "leva";
+import { useControls, folder, Leva } from "leva";
+import { useEffect } from "react";
 import { RiImageFill, RiMarkdownFill } from "react-icons/ri";
 import { BadgePreview } from "../components/badge-preview";
 import { LinkPreview } from "../components/link-preview";
@@ -75,6 +76,10 @@ export default function Home() {
     ? `${params.endLabel} ${params.startLabel}`
     : `${params.startLabel} ${params.endLabel}`;
 
+  useEffect(() => {
+    setParams(variants[0].params);
+  }, []);
+
   return (
     <div className="h-screen flex flex-col w-full overflow-hidden bg-[#F5F2ED] border-8 border-black">
       <header className="flex justify-between p-8">
@@ -121,6 +126,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Leva flat />
     </div>
   );
 }
