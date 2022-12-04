@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import { RiCheckboxCircleFill, RiFileCopyFill } from "react-icons/ri";
@@ -44,14 +45,30 @@ export function LinkPreview({
           onClick={setCopied}
           className="rounded-full w-6 h-6 flex items-center justify-center"
         >
-          {isCopied ? (
-            <RiCheckboxCircleFill
-              title="Succesfully copied image"
-              className="text-green-600"
-            />
-          ) : (
-            <RiFileCopyFill title="Copy image URL" />
-          )}
+          <AnimatePresence mode="popLayout">
+            {isCopied ? (
+              <motion.div
+                key="copied"
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+              >
+                <RiCheckboxCircleFill
+                  title="Succesfully copied image"
+                  className="text-green-600"
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                key="copy"
+              >
+                <RiFileCopyFill title="Copy image URL" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </button>
       </div>
     </div>
