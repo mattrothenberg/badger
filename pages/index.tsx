@@ -1,4 +1,6 @@
-import { useControls, folder, Leva } from "leva";
+import { folder, Leva, useControls } from "leva";
+import { NextSeo } from "next-seo";
+
 import { useEffect } from "react";
 import { RiImageFill, RiMarkdownFill } from "react-icons/ri";
 import { BadgePreview } from "../components/badge-preview";
@@ -81,52 +83,73 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col w-full overflow-hidden bg-[#F5F2ED] border-8 border-black">
-      <header className="flex justify-between p-8">
-        <div className="flex-1">
-          <ul className="space-x-2 inline-flex items-center">
-            {variants.map((variant) => {
-              return (
-                <li key={variant.name}>
-                  <VariantButton
-                    variant={variant}
-                    onClick={() => setParams(variant.params)}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div className="flex-1 flex items-center justify-center">
-          <Logo />
-        </div>
-        <div className="flex-1">
-          <div></div>
-        </div>
-      </header>
-      <div className="flex-1 h-full justify-center flex items-center flex-col">
-        <BadgePreview params={params} url={badgeUrl} />
+    <>
+      <NextSeo
+        title="Badger"
+        description="A beautiful badge generator for your GitHub projects"
+        additionalLinkTags={[
+          {
+            rel: "icon",
+            href: `${process.env.NEXT_PUBLIC_VERCEL_URL}/favicon.ico`,
+          },
+        ]}
+        openGraph={{
+          images: [
+            {
+              width: 1200,
+              height: 627,
+              url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/og.png`,
+            },
+          ],
+        }}
+      />
+      <div className="h-screen flex flex-col w-full overflow-hidden bg-[#F5F2ED] border-8 border-black">
+        <header className="flex justify-between p-8">
+          <div className="flex-1">
+            <ul className="space-x-2 inline-flex items-center">
+              {variants.map((variant) => {
+                return (
+                  <li key={variant.name}>
+                    <VariantButton
+                      variant={variant}
+                      onClick={() => setParams(variant.params)}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="flex-1 flex items-center justify-center">
+            <Logo />
+          </div>
+          <div className="flex-1">
+            <div></div>
+          </div>
+        </header>
+        <div className="flex-1 h-full justify-center flex items-center flex-col">
+          <BadgePreview params={params} url={badgeUrl} />
 
-        <div className="container px-4">
-          <div className="max-w-xl mx-auto mt-8 space-y-4">
-            <LinkPreview
-              startIcon={RiMarkdownFill}
-              renderText={(url) => {
-                return `![${markdownLabel}](${url + badgeUrl})`;
-              }}
-            />
-            <LinkPreview
-              startIcon={RiImageFill}
-              renderText={(url) => {
-                return `<img alt="Badge displaying the text ${markdownLabel}" src="${
-                  url + badgeUrl
-                }" />`;
-              }}
-            />
+          <div className="container px-4">
+            <div className="max-w-xl mx-auto mt-8 space-y-4">
+              <LinkPreview
+                startIcon={RiMarkdownFill}
+                renderText={(url) => {
+                  return `![${markdownLabel}](${url + badgeUrl})`;
+                }}
+              />
+              <LinkPreview
+                startIcon={RiImageFill}
+                renderText={(url) => {
+                  return `<img alt="Badge displaying the text ${markdownLabel}" src="${
+                    url + badgeUrl
+                  }" />`;
+                }}
+              />
+            </div>
           </div>
         </div>
+        <Leva flat />
       </div>
-      <Leva flat />
-    </div>
+    </>
   );
 }

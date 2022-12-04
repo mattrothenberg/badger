@@ -18,6 +18,7 @@
     "framer-motion": "^7.6.18",
     "leva": "^0.9.34",
     "next": "13.0.4",
+    "next-seo": "^5.15.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
