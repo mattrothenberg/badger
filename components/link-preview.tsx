@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
 import { IconType } from "react-icons";
-import {
-  RiCheckboxCircleFill,
-  RiFileCopyFill,
-  RiMarkdownFill,
-} from "react-icons/ri";
+import { RiCheckboxCircleFill, RiFileCopyFill } from "react-icons/ri";
 
 import useClipboard from "react-use-clipboard";
-import { ApiParamsV1 } from "../lib";
 
 export function LinkPreview({
-  url,
   startIcon,
   renderText,
 }: {
-  url: string;
   startIcon: IconType;
   renderText: (url: string) => string;
 }) {
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
-    setImageUrl(window.location.href + url);
+    setImageUrl(window.location.href);
   }, []);
 
   const text = renderText(imageUrl);

@@ -106,16 +106,16 @@ export default function Home() {
           <div className="max-w-xl mx-auto mt-8 space-y-4">
             <LinkPreview
               startIcon={RiMarkdownFill}
-              url={badgeUrl}
               renderText={(url) => {
-                return `![${markdownLabel}](${url})`;
+                return `![${markdownLabel}](${url + badgeUrl})`;
               }}
             />
             <LinkPreview
               startIcon={RiImageFill}
-              url={badgeUrl}
               renderText={(url) => {
-                return `<img alt="Badge displaying the text ${markdownLabel}" src="${url}" />`;
+                return `<img alt="Badge displaying the text ${markdownLabel}" src="${
+                  url + badgeUrl
+                }" />`;
               }}
             />
           </div>
