@@ -75,13 +75,13 @@ export default function Home() {
     : `${params.startLabel} ${params.endLabel}`;
 
   return (
-    <div className="h-screen flex flex-col bg-[#F5F2ED] w-full overflow-hidden">
+    <div className="h-screen flex flex-col w-full overflow-hidden bg">
       <header className="flex justify-between p-8">
         <div className="flex-1">
           <ul className="space-x-2 inline-flex items-center">
             {variants.map((variant) => {
               return (
-                <li>
+                <li key={variant.name}>
                   <VariantButton
                     variant={variant}
                     onClick={() => setParams(variant.params)}

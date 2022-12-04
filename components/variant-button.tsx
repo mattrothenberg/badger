@@ -10,7 +10,7 @@ export function VariantButton({
 }) {
   return (
     <button
-      className="w-8 h-8 rounded-full overflow-hidden relative transform active:translate-y-px transition-transform"
+      className="w-8 h-8 rounded-full overflow-hidden relative bg-[#f5f2ed] transform active:translate-y-px transition-transform"
       onClick={() => onClick()}
       key={variant.name}
     >
@@ -23,8 +23,14 @@ export function VariantButton({
           duration: 0.85,
         }}
       >
-        {variant.preview.map((color) => {
-          return <div style={{ background: color }} className="flex-1"></div>;
+        {variant.preview.map((color, index) => {
+          return (
+            <div
+              key={index}
+              style={{ background: color }}
+              className="flex-1"
+            ></div>
+          );
         })}
       </motion.div>
       {variant.name}
