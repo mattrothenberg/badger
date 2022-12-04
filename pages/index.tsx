@@ -1,5 +1,6 @@
 import { useControls, folder } from "leva";
-import { SiMarkdown } from "react-icons/si";
+import { LinkPreview } from "../components/link-preview";
+
 import { constructBadgeUrl } from "../lib";
 
 export default function Home() {
@@ -59,9 +60,14 @@ export default function Home() {
   const badgeUrl = constructBadgeUrl(params);
 
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="h-screen w-full flex items-center justify-center flex-col">
       <div>
-        <img src={badgeUrl} />
+        <img src={`/` + badgeUrl} />
+      </div>
+      <div className="container px-4">
+        <div className="max-w-xl mx-auto mt-8">
+          <LinkPreview url={badgeUrl} params={params} />
+        </div>
       </div>
       {/* <div className="flex items-center py-24 justify-center bg-[#141E42]">
         <img

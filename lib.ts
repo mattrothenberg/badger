@@ -33,6 +33,5 @@ export function constructBadgeUrl(params: ApiParamsV1) {
     endLabel: params.endLabel,
     rtl: params.rtl ? "1" : "0",
   });
-  console.log(urlParams.toString());
-  return `/api/v1/image?${urlParams.toString()}`;
+  return `api/v1/image?${urlParams.toString()}`;
 }
