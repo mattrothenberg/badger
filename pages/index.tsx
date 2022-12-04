@@ -90,7 +90,7 @@ export default function Home() {
         additionalLinkTags={[
           {
             rel: "icon",
-            href: `${process.env.NEXT_PUBLIC_VERCEL_URL}/favicon.ico`,
+            href: `/favicon.ico`,
           },
         ]}
         openGraph={{
@@ -98,7 +98,7 @@ export default function Home() {
             {
               width: 1200,
               height: 627,
-              url: `${process.env.NEXT_PUBLIC_VERCEL_URL}/og.png`,
+              url: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/og.png`,
             },
           ],
         }}
