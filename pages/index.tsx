@@ -76,7 +76,7 @@ export default function Home() {
     : `${params.startLabel} ${params.endLabel}`;
 
   return (
-    <div className="h-screen flex flex-col w-full overflow-hidden bg">
+    <div className="h-screen flex flex-col w-full overflow-hidden bg border-8 border-black">
       <header className="flex justify-between p-8">
         <div className="flex-1">
           <ul className="space-x-2 inline-flex items-center">
