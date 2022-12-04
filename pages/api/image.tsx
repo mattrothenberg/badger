@@ -40,7 +40,7 @@ export default async function handler(
     <div
       style={{
         fontSize: 20,
-        background: primaryBgColor,
+        // background: primaryBgColor,
         color: primaryTextColor,
         height: "100%",
         flex: "1",
@@ -48,7 +48,10 @@ export default async function handler(
         alignItems: "center",
         justifyContent: "center",
         textTransform: "uppercase",
-
+        background: `${primaryBgColor} url('https://grainy-gradients.vercel.app/noise.svg')`,
+        backgroundSize: "auto",
+        backgroundBlendMode: "normal",
+        backgroundRepeat: "repeat",
         padding: 12,
       }}
     >
@@ -60,7 +63,10 @@ export default async function handler(
     <div
       style={{
         fontSize: 20,
-        background: secondaryBgColor,
+        background: `${primaryBgColor} url('data:image/png;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj4KICAgIDxmaWx0ZXIgaWQ9Im5vaXNlIiB4PSIwIiB5PSIwIj4KICAgICAgPGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz4KICAgICAgPGZlQmxlbmQgbW9kZT0ic2NyZWVuIi8+CiAgICA8L2ZpbHRlcj4KICAgIDxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjUiLz4KPC9zdmc+')`,
+        backgroundSize: "auto",
+        backgroundBlendMode: "normal",
+        backgroundRepeat: "repeat",
         color: secondaryTextColor,
         flex: "1",
         height: "100%",
