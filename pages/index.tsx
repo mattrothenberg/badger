@@ -1,6 +1,7 @@
 import { useControls, folder } from "leva";
 import { RiImageFill, RiMarkdownFill } from "react-icons/ri";
 import { LinkPreview } from "../components/link-preview";
+import { Logo } from "../components/logo";
 import { VariantButton } from "../components/variant-button";
 
 import { ApiParamsV1, constructBadgeUrl } from "../lib";
@@ -74,12 +75,9 @@ export default function Home() {
     : `${params.startLabel} ${params.endLabel}`;
 
   return (
-    <div className="h-screen w-full flex items-center justify-center flex-col">
-      <div className="absolute top-0 left-0 p-4">
-        <div className="space-y-2">
-          <p className="text-xs uppercase tracking-wider font-semibold">
-            Examples
-          </p>
+    <div className="h-screen flex flex-col bg-[#F5F2ED] w-full overflow-hidden">
+      <header className="flex justify-between p-8">
+        <div className="flex-1">
           <ul className="space-x-2 inline-flex items-center">
             {variants.map((variant) => {
               return (
@@ -93,26 +91,34 @@ export default function Home() {
             })}
           </ul>
         </div>
-      </div>
-      <div>
-        <img src={`/` + badgeUrl} />
-      </div>
-      <div className="container px-4">
-        <div className="max-w-xl mx-auto mt-8 space-y-4">
-          <LinkPreview
-            startIcon={RiMarkdownFill}
-            url={badgeUrl}
-            renderText={(url) => {
-              return `![${markdownLabel}](${url})`;
-            }}
-          />
-          <LinkPreview
-            startIcon={RiImageFill}
-            url={badgeUrl}
-            renderText={(url) => {
-              return `<img alt="Badge displaying the text ${markdownLabel}" src="${url}" />`;
-            }}
-          />
+        <div className="flex-1 flex items-center justify-center">
+          <Logo />
+        </div>
+        <div className="flex-1">
+          <div></div>
+        </div>
+      </header>
+      <div className="flex-1 h-full justify-center flex items-center flex-col">
+        <div>
+          <img src={`/` + badgeUrl} />
+        </div>
+        <div className="container px-4">
+          <div className="max-w-xl mx-auto mt-8 space-y-4">
+            <LinkPreview
+              startIcon={RiMarkdownFill}
+              url={badgeUrl}
+              renderText={(url) => {
+                return `![${markdownLabel}](${url})`;
+              }}
+            />
+            <LinkPreview
+              startIcon={RiImageFill}
+              url={badgeUrl}
+              renderText={(url) => {
+                return `<img alt="Badge displaying the text ${markdownLabel}" src="${url}" />`;
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
