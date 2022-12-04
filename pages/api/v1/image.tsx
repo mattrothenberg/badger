@@ -25,7 +25,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const {
-    border,
+    borderColor,
     rtl,
     startBg,
     startText,
@@ -91,7 +91,7 @@ export default async function handler(
     ></div>
   );
 
-  let items = [primary, border ? spacer : null, secondary].filter(Boolean);
+  let items = [primary, borderColor ? spacer : null, secondary].filter(Boolean);
 
   if (rtl === "1") {
     items = items.reverse();
@@ -100,12 +100,12 @@ export default async function handler(
   const svg = await satori(
     <div
       style={{
-        background: border ? border : "transparent",
+        background: borderColor ? borderColor : "transparent",
         display: "flex",
         alignItems: "center",
         height: "100%",
         width: "100%",
-        padding: border ? 4 : 0,
+        padding: borderColor ? 4 : 0,
       }}
     >
       {items.map((item) => item)}

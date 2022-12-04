@@ -10,13 +10,13 @@ export type ApiParamsV1 = {
   rtl: boolean;
 };
 
-export type ApiParamsV1Serialized = Omit<ApiParamsV1, "rtl"> & {
+export type ApiParamsV1Serialized = Omit<ApiParamsV1, "rtl" | "showBorder"> & {
   rtl: "1" | "0";
 };
 
 export function constructBadgeUrl(params: ApiParamsV1) {
   const urlParams = new URLSearchParams({
-    ...(params.showBorder && { border: params.borderColor }),
+    ...(params.showBorder && { borderColor: params.borderColor }),
     startBg: params.startBg,
     startText: params.startText,
     startLabel: params.startLabel,
