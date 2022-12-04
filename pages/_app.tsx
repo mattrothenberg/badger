@@ -11,10 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
     if (process.env.NODE_ENV === "development") return;
 
     Fathom.load("XDKFLKSS", {
-      includedDomains: [
-        "https://badger-wtf.vercel.app",
-        "badge-wtf.vercel.app",
-      ],
+      includedDomains: ["badger-wtf.vercel.app", "vercel.app"],
     });
 
     function onRouteChangeComplete() {
