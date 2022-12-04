@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import satori from "satori";
 import fs from "fs";
 import path from "path";
+import { ApiParamsV1Serialized } from "../../../lib";
 
 const font = {
   data: fs.readFileSync(
@@ -24,37 +25,36 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const {
+    border,
     rtl,
-    baseBgColor,
-    primaryLabel,
-    baseBorderColor,
-    primaryBgColor,
-    primaryTextColor,
-    secondaryLabel,
-    secondaryBgColor,
-    secondaryTextColor,
-  } = req.query as Record<string, string>;
+    startBg,
+    startText,
+    startLabel,
+    endBg,
+    endText,
+    endLabel,
+  } = req.query as ApiParamsV1Serialized;
 
   const primary = (
     <div
       style={{
         fontSize: 20,
         // background: primaryBgColor,
-        color: primaryTextColor,
+        color: startText,
         height: "100%",
         flex: "1",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         textTransform: "uppercase",
-        background: `${primaryBgColor} url('https://grainy-gradients.vercel.app/noise.svg')`,
+        background: startBg,
         backgroundSize: "auto",
         backgroundBlendMode: "normal",
         backgroundRepeat: "repeat",
         padding: 12,
       }}
     >
-      {primaryLabel}
+      {startLabel}
     </div>
   );
 
@@ -62,11 +62,11 @@ export default async function handler(
     <div
       style={{
         fontSize: 20,
-        background: `${primaryBgColor} url('data:image/png;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj4KICAgIDxmaWx0ZXIgaWQ9Im5vaXNlIiB4PSIwIiB5PSIwIj4KICAgICAgPGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz4KICAgICAgPGZlQmxlbmQgbW9kZT0ic2NyZWVuIi8+CiAgICA8L2ZpbHRlcj4KICAgIDxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjUiLz4KPC9zdmc+')`,
+        background: endBg,
         backgroundSize: "auto",
         backgroundBlendMode: "normal",
         backgroundRepeat: "repeat",
-        color: secondaryTextColor,
+        color: endText,
         flex: "1",
         height: "100%",
         display: "flex",
@@ -76,7 +76,7 @@ export default async function handler(
         padding: 12,
       }}
     >
-      {secondaryLabel.trim()}
+      {endLabel.trim()}
     </div>
   );
 
@@ -91,35 +91,24 @@ export default async function handler(
     ></div>
   );
 
-  let items = [primary, spacer, secondary];
+  let items = [primary, border ? spacer : null, secondary].filter(Boolean);
 
-  if (rtl === "true") {
+  if (rtl === "1") {
     items = items.reverse();
   }
 
   const svg = await satori(
     <div
       style={{
-        background: baseBorderColor,
+        background: border ? border : "transparent",
         display: "flex",
         alignItems: "center",
         height: "100%",
         width: "100%",
-        padding: 4,
+        padding: border ? 4 : 0,
       }}
     >
-      <div
-        style={{
-          background: baseBgColor,
-          padding: 4,
-          display: "flex",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        {items.map((item) => item)}
-      </div>
+      {items.map((item) => item)}
     </div>,
     // @ts-ignore
     {
@@ -133,16 +122,11 @@ export default async function handler(
       ],
     }
   );
-
-  // let buffer = await sharp(Buffer.from(svg)).png({ quality: 100 }).toBuffer();
-
-  // send buffer as mime type image/png
   res.setHeader("Content-Type", "image/svg+xml");
-
-  // res.setHeader(
-  //   "Cache-Control",
-  //   "public, immutable, no-transform, s-maxage=31536000, max-age=31536000"
-  // );
+  res.setHeader(
+    "Cache-Control",
+    "public, immutable, no-transform, s-maxage=31536000, max-age=31536000"
+  );
 
   return res.end(svg);
 }

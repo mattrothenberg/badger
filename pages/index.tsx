@@ -1,78 +1,62 @@
+import { useControls, folder } from "leva";
 import { SiMarkdown } from "react-icons/si";
-type BadgeParams = {
-  rtl?: boolean;
-  base: {
-    border?: {
-      color: string;
-    };
-    color: {
-      bg: string;
-    };
-  };
-  primary: {
-    label: string;
-    color: {
-      bg: string;
-      text: string;
-    };
-  };
-  secondary: {
-    label: string;
-    color: {
-      bg: string;
-      text: string;
-    };
-  };
-};
-
-function makeBadgeUrl(params: BadgeParams) {
-  const urlParams = new URLSearchParams();
-  urlParams.set("rtl", params.rtl ? "true" : "false");
-  // @ts-ignore
-  urlParams.set(
-    "baseBorderColor",
-    params["base"]["border"]?.color || "transparent"
-  );
-  urlParams.set("baseBgColor", params.base.color.bg);
-  urlParams.set("primaryLabel", params.primary.label);
-  urlParams.set("primaryBgColor", params.primary.color.bg);
-  urlParams.set("primaryTextColor", params.primary.color.text);
-  urlParams.set("secondaryLabel", params.secondary.label);
-  urlParams.set("secondaryBgColor", params.secondary.color.bg);
-  urlParams.set("secondaryTextColor", params.secondary.color.text);
-  return `/api/v1/image?${urlParams.toString()}`;
-}
+import { constructBadgeUrl } from "../lib";
 
 export default function Home() {
+  const params = useControls({
+    Start: folder({
+      startBg: {
+        label: "Background",
+        value: "#fff",
+      },
+      startText: {
+        label: "Text",
+        value: "black",
+      },
+      startLabel: {
+        label: "Text",
+        value: "works on",
+      },
+    }),
+    End: folder({
+      endBg: {
+        label: "Background",
+        value: "#fff",
+      },
+      endText: {
+        label: "Text",
+        value: "black",
+      },
+      endLabel: {
+        label: "Text",
+        value: "my machine",
+      },
+    }),
+    showBorder: {
+      value: true,
+    },
+    Border: folder({
+      borderColor: {
+        label: "Border",
+        value: "black",
+        render: (get) => {
+          return get("showBorder");
+        },
+      },
+    }),
+    rtl: {
+      value: false,
+    },
+  });
+
+  const badgeUrl = constructBadgeUrl(params);
+
   return (
-    <>
-      <div className="flex items-center py-24 justify-center bg-[#F1EBD3]">
-        <img
-          src={makeBadgeUrl({
-            base: {
-              color: {
-                bg: "#1E270A",
-              },
-            },
-            primary: {
-              label: "Works on",
-              color: {
-                bg: "#07A0C2",
-                text: "#F1EBD3",
-              },
-            },
-            secondary: {
-              label: "My Machine",
-              color: {
-                bg: "#F05633",
-                text: "#F1EBD3",
-              },
-            },
-          })}
-          alt=""
-        />
+    <div className="h-screen flex items-center justify-center">
+      <div>
+        <img src={badgeUrl} />
       </div>
-      <div className="flex items-center py-24 justify-center bg-[#141E42]">
+      {/* <div className="flex items-center py-24 justify-center bg-[#141E42]">
         <img
           src={makeBadgeUrl({
             base: {
@@ -271,7 +255,7 @@ export default function Home() {
             </pre>
           </div>
         </div>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 }
