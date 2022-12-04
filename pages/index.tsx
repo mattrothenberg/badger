@@ -1,4 +1,5 @@
 import { useControls, folder } from "leva";
+import { RiImageFill, RiMarkdownFill } from "react-icons/ri";
 import { LinkPreview } from "../components/link-preview";
 
 import { ApiParamsV1, constructBadgeUrl } from "../lib";
@@ -64,6 +65,10 @@ export default function Home() {
     set(variant);
   };
 
+  let markdownLabel = params.rtl
+    ? `${params.endLabel} ${params.startLabel}`
+    : `${params.startLabel} ${params.endLabel}`;
+
   return (
     <div className="h-screen w-full flex items-center justify-center flex-col">
       <ul>
@@ -84,8 +89,21 @@ export default function Home() {
         <img src={`/` + badgeUrl} />
       </div>
       <div className="container px-4">
-        <div className="max-w-xl mx-auto mt-8">
-          <LinkPreview url={badgeUrl} params={params} />
+        <div className="max-w-xl mx-auto mt-8 space-y-4">
+          <LinkPreview
+            startIcon={RiMarkdownFill}
+            url={badgeUrl}
+            renderText={(url) => {
+              return `![${markdownLabel}](${url})`;
+            }}
+          />
+          <LinkPreview
+            startIcon={RiImageFill}
+            url={badgeUrl}
+            renderText={(url) => {
+              return `<img alt="Badge displaying the text ${markdownLabel}" src="${url}" />`;
+            }}
+          />
         </div>
       </div>
     </div>

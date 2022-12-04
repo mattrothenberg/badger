@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { IconType } from "react-icons";
 import {
   RiCheckboxCircleFill,
   RiFileCopyFill,
@@ -9,35 +10,39 @@ import useClipboard from "react-use-clipboard";
 import { ApiParamsV1 } from "../lib";
 
 export function LinkPreview({
-  params,
   url,
+  startIcon,
+  renderText,
 }: {
-  params: ApiParamsV1;
   url: string;
+  startIcon: IconType;
+  renderText: (url: string) => string;
 }) {
   const [imageUrl, setImageUrl] = useState("");
+
   useEffect(() => {
     setImageUrl(window.location.href + url);
   }, []);
 
-  const label = params.rtl
-    ? `${params.endLabel} ${params.startLabel}`
-    : `${params.startLabel} ${params.endLabel}`;
+  const text = renderText(imageUrl);
 
-  const value = `![${label}](${imageUrl})`;
-
-  const [isCopied, setCopied] = useClipboard(value, {
+  const [isCopied, setCopied] = useClipboard(text, {
     successDuration: 2000,
   });
+
+  let StartIcon = startIcon;
 
   return (
     <div className="border border-black/10 w-full relative overflow-ellipsis truncate focus-within:ring focus-within:ring-black">
       <div className="bg-transparent flex shrink-0 absolute left-0 top-0 bottom-0 w-10 h-full items-center justify-center">
-        <RiMarkdownFill title="Markdown logo" className="text-black" />
+        <StartIcon title="Markdown logo" className="text-black" />
       </div>
       <input
         className="w-full focus:outline-none bg-transparent pl-8 pr-8 font-mono text-sm appearance-none p-2 border-none overflow-ellipsis truncate"
-        value={value}
+        onFocus={(e) => {
+          e.target.select();
+        }}
+        value={text}
         readOnly
         type="text"
       />
